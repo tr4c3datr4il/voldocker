@@ -8,7 +8,7 @@ Volatility Profile Docker Creator
 docker build --build-arg DISTRO=<distro_version> --build-arg KERNEL=<kernel_version> -t voldocker .
 ```
 
-+ Second, run the docker images and get the profile from it:
++ Second, run the docker image and get the profile from it:
 
 ```
 docker run -it voldocker /bin/bash &
