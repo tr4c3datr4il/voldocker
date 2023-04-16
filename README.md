@@ -12,7 +12,7 @@ docker build --build-arg DISTRO=<distro_version> --build-arg KERNEL=<kernel_vers
 
 ```
 docker run -it voldocker /bin/bash &
-docker cp <container id>:/workspace/Ubuntu*zip ./
+docker cp <container id>:/workspace/Ubuntu-<kernel_version>-profile.zip ./
 ```
 
 + Last, move the profile to `/volatility/plugins/overlays/linux/` folder. Then enjoy!!
