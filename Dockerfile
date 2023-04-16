@@ -15,7 +15,7 @@ RUN apt-get install -y make \
         golang \
         git \
         zip \
-		lsb-core \
+	lsb-core \
         build-essential \
         libssl-dev \
         libelf-dev \
@@ -29,5 +29,5 @@ RUN git clone --depth 1 --branch master https://github.com/volatilityfoundation/
     cd ./volatility/tools/linux && \
 	sed -i 's/$(shell uname -r)/'$KERNEL'/g' Makefile && \
 	echo 'MODULE_LICENSE("GPL");' >> module.c && \
-    make && \
+    	make && \
     zip ../../../Ubuntu-$(lsb_release -i -s)-$KERNEL-profile.zip ./module.dwarf /boot/System.map-$KERNEL
