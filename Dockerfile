@@ -30,4 +30,4 @@ RUN git clone --depth 1 --branch master https://github.com/volatilityfoundation/
 	sed -i 's/$(shell uname -r)/'$KERNEL'/g' Makefile && \
 	echo 'MODULE_LICENSE("GPL");' >> module.c && \
     make && \
-    zip ../../../Ubuntu-$(lsb_release -i -s)-$KERNEL-profile.zip ./module.dwarf /boot/System.map-$KERNEL
+    zip ../../../$(lsb_release -i -s)-$KERNEL-profile.zip ./module.dwarf /boot/System.map-$KERNEL
