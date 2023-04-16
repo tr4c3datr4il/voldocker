@@ -15,7 +15,7 @@ RUN apt-get install -y make \
         golang \
         git \
         zip \
-		lsb-core \
+	lsb-core \
         build-essential \
         libssl-dev \
         libelf-dev \
