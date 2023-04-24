@@ -1,5 +1,5 @@
 # voldocker
-Volatility Profile Docker Creator
+Volatility Profile & Symbol Docker Creator
 
 ## **How to use**:
 + First, build the image:
@@ -8,15 +8,17 @@ Volatility Profile Docker Creator
 docker build --build-arg DISTRO=<distro_version> --build-arg KERNEL=<kernel_version> -t voldocker .
 ```
 
-+ Second, run the docker image and get the profile from it:
++ Second, run the docker image and get the profile/symbol from it:
 
 ```
 docker run -it voldocker /bin/bash &
 
 docker cp <container id>:/workspace/Ubuntu-<kernel_version>-profile.zip ./
+
+docker cp <container id>:/workspace/vmlinux-<kernel_version>.json ./
 ```
 
-+ Last, move the profile to `/volatility/plugins/overlays/linux/` folder. Then enjoy!!
++ Last, move the profile to `/volatility/plugins/overlays/linux/` folder or move the symbol to `/volatility3/framework/symbols/linux/` folder. Then enjoy!!
 
 
 *Example:* 
@@ -29,4 +31,6 @@ $ docker run -it voldocker /bin/bash &
 $ docker ps    // get the id of the running container
 
 $ docker cp <container id>:/workspace/Ubuntu-5.15.0-25-generic-profile.zip ./
+
+$ docker cp <container id>:/workspace/vmlinux-<kernel_version>.json ./
 ```
