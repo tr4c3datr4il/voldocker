@@ -1,7 +1,7 @@
 ARG DISTRO
 ARG KERNEL
 
-FROM ubuntu:${DISTRO}
+FROM ubuntu:$DISTRO
 
 ARG DISTRO
 ARG KERNEL
@@ -15,6 +15,7 @@ RUN apt-get install -y make \
         golang \
         git \
         zip \
+        wget \
 	lsb-core \
         build-essential \
         libssl-dev \
@@ -31,3 +32,12 @@ RUN git clone --depth 1 --branch master https://github.com/volatilityfoundation/
 	echo 'MODULE_LICENSE("GPL");' >> module.c && \
     make && \
     zip ../../../$(lsb_release -i -s)-$KERNEL-profile.zip ./module.dwarf /boot/System.map-$KERNEL
+
+RUN wget http://ddebs.ubuntu.com/pool/main/l/linux/linux-image-$KERNEL-dbgsym_4.4.0-72.93_amd64.ddeb && \
+    ./linux-image-$KERNEL-dbgsym_4.4.0-72.93_amd64.ddeb && \
+    git clone https://github.com/volatilityfoundation/dwarf2json && \
+    cd dwarf2json/ && \
+    go mod download github.com/spf13/pflag && \
+    go build && \
+    ./dwarf2json linux --elf /usr/lib/debug/boot/vmlinux-$KERNEL --system-map /boot/System.map-$KERNEL > ../vmlinux-$KERNEL.json
+
