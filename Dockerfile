@@ -1,10 +1,10 @@
-ARG DISTRO
-ARG KERNEL
+ARG DISTRO_VER
+ARG KERNEL_VER
 
-FROM ubuntu:$DISTRO
+FROM ubuntu:$DISTRO_VER
 
-ARG DISTRO
-ARG KERNEL
+ARG DISTRO_VER
+ARG KERNEL_VER
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get -y update && apt-get -y upgrade
@@ -20,16 +20,16 @@ RUN apt-get install -y make \
         build-essential \
         libssl-dev \
         libelf-dev \
-        linux-image-$KERNEL \
-        linux-headers-$KERNEL
+        linux-image-$KERNEL_VER \
+        linux-headers-$KERNEL_VER
 
 RUN mkdir -p /workspace
 WORKDIR /workspace
 
 RUN git clone --depth 1 --branch master https://github.com/volatilityfoundation/volatility.git && \
     cd ./volatility/tools/linux && \
-	sed -i 's/$(shell uname -r)/'$KERNEL'/g' Makefile && \
+	sed -i 's/$(shell uname -r)/'$KERNEL_VER'/g' Makefile && \
 	echo 'MODULE_LICENSE("GPL");' >> module.c && \
     make && \
-    zip ../../../$(lsb_release -i -s)-$KERNEL-profile.zip ./module.dwarf /boot/System.map-$KERNEL
+    zip ../../../$(lsb_release -i -s)-$KERNEL_VER-profile.zip ./module.dwarf /boot/System.map-$KERNEL_VER
 
