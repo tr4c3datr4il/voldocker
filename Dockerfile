@@ -1,11 +1,9 @@
 ARG DISTRO_VER
 ARG KERNEL_VER
+ARG DEBIAN_FRONTEND=noninteractive
 
 FROM ubuntu:$DISTRO_VER
 
-ARG DISTRO_VER
-ARG KERNEL_VER
-ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get -y update && apt-get -y upgrade
 RUN apt-get install -y make \
