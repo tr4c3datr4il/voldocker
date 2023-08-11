@@ -1,0 +1,26 @@
+ARG KERNEL_VER
+ARG DEBIAN_FRONTEND=noninteractive
+
+FROM kalilinux/kali-rolling
+
+
+RUN apt -y update && DEBIAN_FRONTEND=noninteractive apt -y dist-upgrade && apt -y autoremove && apt clean
+RUN apt-get install -y 
+        make \
+        dwarfdump \
+        flex \
+        bison \
+        golang \
+        git \
+        zip \
+        wget \
+        build-essential \
+        lsb-release \
+        libssl-dev \
+        libelf-dev \
+        kali-linux-headless \
+        linux-image-$KERNEL_VER \
+        linux-headers-$KERNEL_VER
+
+RUN mkdir -p /workspace
+WORKDIR /workspace
